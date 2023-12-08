@@ -13,12 +13,14 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         offset = transform.position - player.transform.position;
+        Debug.Log("camera controller");
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        
+        Debug.Log("camera controller");
+
         transform.position = player.transform.position - player.transform.forward * distanceFromPlayer;
         transform.LookAt(player.transform.position);
         transform.position = new Vector3(transform.position.x, transform.position.y + height, transform.position.z);
