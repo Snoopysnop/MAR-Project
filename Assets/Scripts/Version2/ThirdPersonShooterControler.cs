@@ -20,11 +20,13 @@ public class ThirdPersonShooterControler : MonoBehaviour
     private StarterAssetsInputs starterAssetsInputs;
 
     private GameObject crosshair;
+    private Animator animator;
 
     private void Awake()
     { 
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         thirdPersonController = GetComponent<ThirdPersonController>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -45,6 +47,8 @@ public class ThirdPersonShooterControler : MonoBehaviour
             aimVirtualCamera.gameObject.SetActive(true);
             thirdPersonController.SetSensitivity(aimSensitivity);
             thirdPersonController.SetRotationOnMove(false);
+            animator.SetLayerWeight(1,Mathf.Lerp(animator.GetLayerWeight(1),1f,Time.deltaTime * 10f));
+
 
             Vector3 wordAimTarget = mouseWorldPosition;
             wordAimTarget.y = transform.position.y;
@@ -58,7 +62,7 @@ public class ThirdPersonShooterControler : MonoBehaviour
             thirdPersonController.SetRotationOnMove(true);
 
             thirdPersonController.SetSensitivity(normalSensitivity);
-
+            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
         } 
 
 
@@ -66,7 +70,7 @@ public class ThirdPersonShooterControler : MonoBehaviour
         {
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
             Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-            starterAssetsInputs.shoot = false ;
+            starterAssetsInputs.shoot = false;
         }
     }
 }
