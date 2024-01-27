@@ -8,6 +8,7 @@ TagManager:
   - Concrete
   - Target
   - button
+  - DoorCollider
   layers:
   - Default
   - TransparentFX

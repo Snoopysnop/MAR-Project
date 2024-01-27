@@ -12,14 +12,10 @@ public class ButtonUi : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         triggered = true;
-        Debug.Log("Canneton coincoin des bois");
     }
     private void OnTriggerExit(Collider other)
     {
         triggered = false;
-        Debug.Log("Canneton coincoin des plages");
-
-
     }
     void Update()
     {
