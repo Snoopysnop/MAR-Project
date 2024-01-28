@@ -14,7 +14,10 @@ public class EnemyController : MonoBehaviour
     public Transform[] navPoints;
     public NavMeshAgent agent;
     public int destPoint = 0;
+    public bool dead = false;
 
+    private float timeLeft = 0f;
+    private float timeLeftBeforeSwitchPoint = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,25 +30,51 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerDistance = Vector3.Distance(target.position, transform.position);
+        if (!dead)
+        {
+            playerDistance = Vector3.Distance(target.position, transform.position);
 
-        if(playerDistance < awareAI) {
-            LookAtPlayer();
-            Debug.Log("seen");
-        }
-
-        if(playerDistance < awareAI) {
-            if(playerDistance > 2f) {
-                Chase();
+            if (playerDistance < awareAI)
+            {
+                LookAtPlayer();
             }
-            else {
-                GoToNextPoint();
+
+            if (playerDistance < awareAI)
+            {
+                if(playerDistance <= 1.2f)
+                {
+                    timeLeft -= Time.deltaTime;
+                    if (timeLeft <= 0) {
+                        timeLeft = 1f;
+                        Dammage(5);
+                    }
+                    
+                }
+                if (playerDistance >=1f)
+                {
+                    Chase();
+                }
+                else
+                {
+                    GoToNextPoint();
+                }
+            }
+
+            if (agent.remainingDistance < 0.5f)
+            {
+                timeLeftBeforeSwitchPoint -= Time.deltaTime;
+                if (timeLeftBeforeSwitchPoint <= 0)
+                {
+                    timeLeftBeforeSwitchPoint = 0.3f;
+                    GoToNextPoint();
+                }
             }
         }
-
-        if(agent.remainingDistance < 0.5f) {
-            GoToNextPoint();
+        else
+        {
+            agent.destination = transform.position;
         }
+        
     }
 
     void LookAtPlayer() {
@@ -62,5 +91,12 @@ public class EnemyController : MonoBehaviour
 
     void Chase() {
         transform.Translate(Vector3.forward * AIMoveSpeed * Time.deltaTime);
+    }
+    void Dammage(float value)
+    {
+        
+        GameObject gameObject = GameObject.FindGameObjectWithTag("HealthBarPlayer");
+        HealthBar hbTarget = gameObject.GetComponent<HealthBar>();
+        hbTarget.Dammage(value);
     }
 }

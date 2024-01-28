@@ -8,5 +8,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Warehouse.unity
     guid: 26a5f394eb3dd00a09ccf09907dcb69d
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: 5c11ed7550edab34f8bddc89ab3f48d0
+  - enabled: 1
+    path: Assets/Scenes/LostScene.unity
+    guid: 6e59531bb8d0e2abd8985b4fbd9873f9
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 8a96d98e11d8dec59a20ef9589894639
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 4c274f67b88924fb98b51a041e35f6ac
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}

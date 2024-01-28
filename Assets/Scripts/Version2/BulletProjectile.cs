@@ -13,7 +13,7 @@ public class BulletProjectile : MonoBehaviour
     private void Awake()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
-    } 
+    }
     private void Start()
     {
         float speed = 40f;
@@ -23,24 +23,21 @@ public class BulletProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<BulletTarget>() == null)
+
+        if (other.gameObject.CompareTag("enemy"))
         {
-            // Instantiate(vfxHit, transform.position, Quaternion.LookRotation(transform.forward));
-
             Instantiate(vfxHit, transform.position, Quaternion.identity);
-
+            HealthBar hb = other.GetComponentInChildren<HealthBar>();
+            if(hb != null)
+            {
+                hb.Dammage(20);
+            }
+            
         }
         else
         {
-            // Instantiate(vfxHit, transform.position, Quaternion.LookRotation(transform.forward));
-
-            Instantiate(vfxHit, transform.position, Quaternion.identity);
+            Instantiate(vfxNoHit, transform.position, Quaternion.identity);
         }
-
         Destroy(gameObject);
     }
-
-
-  
-
 }
